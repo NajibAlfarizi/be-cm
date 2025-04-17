@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import morgan from 'morgan'
 import connectDB from './config/db.js'
-// import { notFound, errorHandler } from './middleware/errorMiddleware.js'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 // Inisialisasi dotenv
 dotenv.config()
@@ -13,6 +13,7 @@ connectDB()
 
 // Inisialisasi app
 const app = express()
+
 
 // Middleware
 app.use(cors())
@@ -24,12 +25,20 @@ app.get('/', (req, res) => {
   res.send('API ChiCha Mobile CRM berjalan... 🚀')
 })
 
+// Import routes
+import authRoutes from './routes/authRoutes.js'
+
+
+// Gunakan routes
+app.use('/api/auth', authRoutes)
+
 // Middleware error handling
-// app.use(notFound)
-// app.use(errorHandler)
+app.use(notFound)
+app.use(errorHandler)
 
 // Jalankan server
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`✅ Server berjalan di mode ${process.env.NODE_ENV} di port ${PORT}`)
 })
+
