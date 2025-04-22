@@ -27,10 +27,12 @@ app.get('/', (req, res) => {
 
 // Import routes
 import authRoutes from './routes/authRoutes.js'
+import categoryRoutes from './routes/categoryRoutes.js'
 
 
 // Gunakan routes
 app.use('/api/auth', authRoutes)
+app.use('/api/categories', categoryRoutes)
 
 // Middleware error handling
 app.use(notFound)
